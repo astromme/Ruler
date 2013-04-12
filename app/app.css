@@ -1,0 +1,87 @@
+[contenteditable] {
+  -webkit-user-select: text;
+}
+
+body {
+	margin: 0;
+	background-color: rgba(0, 0, 0, 0);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+ul {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+
+li {
+	list-style-type: none;
+}
+
+#close_window_button {
+	z-index: 1000;
+	position:absolute;
+	top: 15px;
+	right: 6px;
+	border: none;
+	width: 17px;
+	height: 17px;
+	background:url(close.png) no-repeat;
+}
+
+#close_window_button:hover {
+	background:url(close_hover.png) no-repeat;
+}
+
+.ruler {
+	background: lightYellow;
+    box-shadow: 0 -1px 1em hsl(60, 60%, 84%) inset;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    color: #777;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+#ruler_horizontal {
+	-webkit-app-region: drag;
+	width: 700px;
+	height: 50px;
+}
+
+.major_tick, .minor_tick, .label_tick, .ruler_label {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+}
+
+.minor_tick {
+	border-left:1px solid #888;
+	height: 3px;
+	top: 0;
+}
+
+.major_tick {
+	border-left:1px solid #888;
+	height: 5px;
+	top: 0;
+}
+
+.label_tick {
+	border-left:1px solid #888;
+	height: 10px;
+	top: 0;
+}
+
+.ruler_label {
+	top: 10px;
+	text-shadow: 1px 1px hsl(60, 60%, 84%);
+	
+	/* this gets it to align center */
+	width: 100%;
+	text-align: center;
+	margin-left: -50%;
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Ruler",
+  "description": "Screen Ruler",
+  "version": "0.1",
+  "minimum_chrome_version": "26",
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "permissions": [
+  ],
+  "icons": { "16": "icon-16.png", "128": "icon-128.png" }
+}
