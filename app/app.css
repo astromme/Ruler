@@ -24,6 +24,7 @@ li {
 #close_window_button {
 	z-index: 1000;
 	position:absolute;
+	-webkit-app-region: no-drag !important;
 	top: 15px;
 	right: 6px;
 	border: none;
