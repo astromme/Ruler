@@ -9,7 +9,7 @@ Installation
 
 Most users will want to install [from the Chrome Web Store][webstore-dl].
 
-OR
+### Installing from the source
 
 * Download [this zip of Ruler][ruler-dl]
 * Unzip Ruler-master.zip
