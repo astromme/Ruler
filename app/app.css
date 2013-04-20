@@ -30,11 +30,16 @@ li {
 	border: none;
 	width: 17px;
 	height: 17px;
-	background:url(close.png) no-repeat;
+	background:url(close.png) no-repeat,
+	           radial-gradient(ellipse at center,
+	                           rgba(255,255,225,1) 0%,
+	                           rgba(255,255,225,0.46) 84%,
+	                           rgba(255,255,225,0) 100%);
 }
 
 #close_window_button:hover {
 	background:url(close_hover.png) no-repeat;
+	background-color: rgba(255, 255, 255, 1);
 }
 
 .units_label {
@@ -48,7 +53,7 @@ li {
 }
 
 .ruler {
-	background: lightYellow;
+	background: rgba(255, 255, 225, 1);
     box-shadow: 0 -1px 1em hsl(60, 60%, 84%) inset;
     /* border: 1px solid #ccc; /* causes dimensions to be +2, no good */
     color: #777;
