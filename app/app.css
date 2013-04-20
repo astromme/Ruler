@@ -44,12 +44,12 @@ li {
 
 .units_label {
 	position: absolute;
-	bottom: 5px;
-	left: 5px;
+	bottom: 0px;
+	left: 0px;
 	border: none;
 	background: none;
 	margin: 0;
-	padding: 0;
+	padding: 5px 5px 5px 5px;
 }
 
 .ruler {
