@@ -6,17 +6,23 @@
     <script type="text/javascript" src="lib/angularjs/angular.js"></script>
     <script type="text/javascript" src="app.js"></script>
   </head>
-  <body ng-controller="RulerControl" ng-init="init()">
+  <body id="body"
+        ng-controller="RulerControl"
+        ng-init="init()"
+        ng-mouse
+        ng-mousemove="mousemove($event)">
 
     <div id="ruler_horizontal" class="ruler">
       <button id="close_window_button" ng-click="closeWindow()"></button>
+      <button class="units_label"
+              ng-click="unitsClicked()">{{horizontal.units_label}}</button>
       <div ng-repeat="tick in horizontal.ticks"
            class="{{tick.type}}_tick"
-           style="left: {{$index*horizontal.tick_spacing}}px"></div>
+           style="left: {{tick.left}}{{horizontal.units}}"></div>
 
       <div class="ruler_label"
            ng-repeat="label in horizontal.labels"
-           style="left: {{label.y}}px">{{label.title}}</div>
+           style="left: {{label.y}}{{horizontal.units}}">{{label.title}}</div>
     </div>
   </body>
 </html>

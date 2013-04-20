@@ -37,10 +37,19 @@ li {
 	background:url(close_hover.png) no-repeat;
 }
 
+.units_label {
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	border: none;
+	background: none;
+	margin: 0;
+	padding: 0;
+}
+
 .ruler {
 	background: lightYellow;
     box-shadow: 0 -1px 1em hsl(60, 60%, 84%) inset;
-    border-radius: 2px;
     border: 1px solid #ccc;
     color: #777;
     font-size: 11px;
@@ -49,7 +58,7 @@ li {
 
 #ruler_horizontal {
 	-webkit-app-region: drag;
-	width: 700px;
+	width: 100%;
 	height: 50px;
 }
 
