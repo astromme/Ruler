@@ -3,7 +3,7 @@ chrome.app.runtime.onLaunched.addListener(function() {
   	'transparentBackground':true,
     'minWidth':300,
     'minHeight':50,
-    'maxWidth':2560,
+    'maxWidth':4000,
     'maxHeight':50,
     'width':700,
     'height':50,

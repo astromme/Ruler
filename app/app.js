@@ -1,7 +1,7 @@
 angular.module('ruler', ['ui']);
 
 // ruler can't get bigger than this
-var maximum_width = window.screen.availWidth;
+var maximum_width = "4000"
 
 function toArray(list) {
   return Array.prototype.slice.call(list || [], 0);
@@ -42,12 +42,12 @@ function errorHandler(e) {
 
 function RulerControl($scope) {
     $scope.horizontal = {
-        units: "in",
-        units_label: "in",
-        subdivisions_per_unit: 8,
-        tick_spacing: 1,
-        minor_per_major: 4,
-        minor_per_label: 8,
+        units: null,
+        units_label: null,
+        subdivisions_per_unit: null,
+        tick_spacing: null,
+        minor_per_major: null,
+        minor_per_label: null,
 
         ticks: null,
         labels: null,
@@ -84,8 +84,12 @@ function RulerControl($scope) {
 
     $scope.init = function() {
         console.log('init');
-        $scope.horizontal.ticks = $scope.generate_ticks(maximum_width);
-        $scope.horizontal.labels = $scope.generate_labels(maximum_width);
+
+        var canvas = document.getElementById("ruler_horizontal_canvas");
+        canvas.width = maximum_width
+        canvas.height = document.height;
+
+        $scope.selectUnits("px");
 
         //document.getElementById("body").webkitRequestPointerLock();
         //document.addEventListener('webkitpointerlockchange', changeCallback, false);
@@ -103,13 +107,20 @@ function RulerControl($scope) {
             'px': 'cm',
         }
 
-        var unit_options = $scope.horizontal.unit_options[options[$scope.horizontal.units]];
+        $scope.selectUnits(options[$scope.horizontal.units]);
+    }
+
+    $scope.selectUnits = function(units) {
+        var unit_options = $scope.horizontal.unit_options[units];
         for (var key in unit_options) {
             $scope.horizontal[key] = unit_options[key];
         }
 
-        $scope.horizontal.ticks = $scope.generate_ticks(maximum_width);
-        $scope.horizontal.labels = $scope.generate_labels(maximum_width);
+        var ctx = document.getElementById("ruler_horizontal_canvas").getContext("2d");
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+        $scope.draw_ruler();
+        //$scope.horizontal.labels = $scope.generate_labels(maximum_width);
     }
 
     $scope.mousemove = function($event) {
@@ -117,46 +128,51 @@ function RulerControl($scope) {
         //console.log($event);
     }
 
-    $scope.generate_ticks = function(pixels) {
-        var ticks = [];
+    $scope.draw_ruler = function() {
+        var minor_height = 3;
+        var major_height = 5;
+        var label_height = 10;
+
+        var units = $scope.horizontal.units;
+        var px_per_unit = window.getComputedStyle(document.getElementById(units)).width.slice(0, -2);
+        console.log(px_per_unit + " px per " + units);
+
+        var font_height = 12;
+        var ctx = document.getElementById("ruler_horizontal_canvas").getContext("2d");
+        ctx.lineWidth = 1;
+        ctx.font = String(font_height)+"px Arial";
+        ctx.textAlign = "center";
+        ctx.beginPath();
+
+        var ppuMoveTo = function(x, y) {
+            ctx.moveTo(x*px_per_unit-0.5, y);
+        }
+        var ppuLineTo = function(x, y) {
+            ctx.lineTo(x*px_per_unit-0.5, y);
+        }
+
         var spacing = $scope.horizontal.tick_spacing;
         var per_unit = $scope.horizontal.subdivisions_per_unit;
 
-        for (var i=1; (i*spacing*per_unit)<pixels; i++) {
-            if (i % $scope.horizontal.minor_per_label == 0) {
-                ticks.push({type: "label",
-                            left: i*spacing/per_unit});
-            } else if (i % $scope.horizontal.minor_per_major == 0) {
-                ticks.push({type: "major",
-                            left: i*spacing/per_unit});
+        for (var i=1; (i*spacing/per_unit*px_per_unit)<maximum_width; i++) {
+            var x = i*spacing/per_unit;
+            var y = 0;
 
+            if (i % $scope.horizontal.minor_per_label == 0) {
+                ppuMoveTo(x, y);
+                ppuLineTo(x, y+label_height);
+                ctx.fillText(x, x*px_per_unit, y+label_height+font_height);
+            } else if (i % $scope.horizontal.minor_per_major == 0) {
+                ppuMoveTo(x, y);
+                ppuLineTo(x, y+major_height);
             } else {
-                ticks.push({type: "minor",
-                            left: i*spacing/per_unit});
+                ppuMoveTo(x, y);
+                ppuLineTo(x, y+minor_height);
             }
         }
 
-        return ticks;
+        ctx.stroke();
     }
-
-    $scope.generate_labels = function(pixels) {
-        // using pixels here could be very wrong, and things don't break
-        // only because I'm assuming that one subdivision of the chosen
-        // unit will never be smaller than 1 pixel. We end up many ticks
-        // offscreen but that is better than not showing ticks
-        //
-        // fixing this problem would require a good way of converting
-        // distances between units such as cm, in, em to pixels.
-        var labels = [];
-        var px_per_label = $scope.horizontal.tick_spacing*$scope.horizontal.minor_per_label/$scope.horizontal.subdivisions_per_unit;
-
-        for (var i=px_per_label; i<pixels; i+=px_per_label) {      
-            labels.push({y: i, title: String(i)});
-        }
-
-        return labels;
-    }
-
 }
 
 
