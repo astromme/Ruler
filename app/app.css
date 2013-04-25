@@ -44,6 +44,7 @@ li {
 
 .units_label {
 	position: absolute;
+	-webkit-app-region: no-drag !important;
 	bottom: 0px;
 	left: 0px;
 	border: none;
