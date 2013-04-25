@@ -49,9 +49,6 @@ function RulerControl($scope) {
         minor_per_major: null,
         minor_per_label: null,
 
-        ticks: null,
-        labels: null,
-
         unit_options: {
             "px": {
                 units: "px",
@@ -120,7 +117,6 @@ function RulerControl($scope) {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
         $scope.draw_ruler();
-        //$scope.horizontal.labels = $scope.generate_labels(maximum_width);
     }
 
     $scope.mousemove = function($event) {
