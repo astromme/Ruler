@@ -84,7 +84,7 @@ function RulerControl($scope) {
 
         var canvas = document.getElementById("ruler_horizontal_canvas");
         canvas.width = maximum_width
-        canvas.height = document.height;
+        canvas.height = document.body.clientHeight;
 
         $scope.selectUnits("px");
 
