@@ -1,6 +1,17 @@
 Ruler Changelog
 ===============
 
+v0.2.3
+------
+
+* Update description
+
+v0.2.2
+------
+
+* Fix changing between px, cm, in on Chrome OS and Windows
+* Fix drawing bug when used with Chrome 30
+
 v0.2.1
 ------
 
