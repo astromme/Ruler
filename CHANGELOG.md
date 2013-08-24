@@ -1,6 +1,12 @@
 Ruler Changelog
 ===============
 
+v0.3
+----
+
+* Support for vertical rulers!
+* Create more horizontal/vertical rulers by clicking the buttons near the units label
+
 v0.2.3
 ------
 
