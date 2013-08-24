@@ -131,6 +131,16 @@ function RulerControl($scope) {
         //console.log($event);
     }
 
+    $scope.createHorizontalRuler = function($event) {
+        chrome.runtime.sendMessage({text:"createHorizontalRuler"}, function(reponse){
+        });
+    }
+
+    $scope.createVerticalRuler = function($event) {
+        chrome.runtime.sendMessage({text:"createVerticalRuler"}, function(reponse){
+        });
+    }
+
     $scope.draw_ruler = function() {
         var minor_height = 3;
         var major_height = 5;

@@ -1,5 +1,5 @@
-chrome.app.runtime.onLaunched.addListener(function() {
-  chrome.app.window.create('ruler.html', {
+function createHorizontalRuler() {
+    chrome.app.window.create('ruler_horizontal.html', {
     'transparentBackground':true,
     'minWidth':300,
     'minHeight':50,
@@ -9,15 +9,30 @@ chrome.app.runtime.onLaunched.addListener(function() {
     'height':50,
     'frame' : 'none'
   });
+}
 
-  chrome.app.window.create('ruler_vertical.html', {
+
+function createVerticalRuler() {
+    chrome.app.window.create('ruler_vertical.html', {
     'transparentBackground':true,
     'minWidth':50,
     'minHeight':300,
     'maxWidth':50,
     'maxHeight':4000,
     'width':50,
-    'height':700,
+    'height':500,
     'frame' : 'none'
   });
+}
+
+chrome.app.runtime.onLaunched.addListener(function() {
+  createHorizontalRuler();
+});
+
+chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
+  if (message.text == "createHorizontalRuler") {
+    createHorizontalRuler();
+  } else if (message.text == "createVerticalRuler") {
+    createVerticalRuler();
+  }
 });
