@@ -79,12 +79,19 @@ function RulerControl($scope) {
 
 
 
-    $scope.init = function() {
+    $scope.init = function(orientation) {
+        $scope.orientation = orientation;
         console.log('init');
 
-        var canvas = document.getElementById("ruler_horizontal_canvas");
-        canvas.width = maximum_width
-        canvas.height = document.body.clientHeight;
+        var canvas = document.getElementById("ruler_canvas");
+        if ($scope.orientation == 'horizontal') {
+            canvas.width = maximum_width
+            canvas.height = document.body.clientHeight;
+        } else {
+            canvas.width = maximum_width
+            canvas.height = document.body.clientWidth;
+        }
+
 
         $scope.selectUnits("px");
 
@@ -113,7 +120,7 @@ function RulerControl($scope) {
             $scope.horizontal[key] = unit_options[key];
         }
 
-        var ctx = document.getElementById("ruler_horizontal_canvas").getContext("2d");
+        var ctx = document.getElementById("ruler_canvas").getContext("2d");
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
         $scope.draw_ruler();
@@ -134,7 +141,7 @@ function RulerControl($scope) {
         console.log(px_per_unit + " px per " + units);
 
         var font_height = 12;
-        var ctx = document.getElementById("ruler_horizontal_canvas").getContext("2d");
+        var ctx = document.getElementById("ruler_canvas").getContext("2d");
         ctx.lineWidth = 1;
         ctx.font = String(font_height)+"px Arial";
         ctx.textAlign = "center";

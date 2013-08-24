@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html ng-app="" ng-csp>
   <head>
-    <link rel="stylesheet" type="text/css" href="app.css">
+  	<link rel="stylesheet" type="text/css" href="app.css">
 
     <script type="text/javascript" src="lib/angularjs/angular.js"></script>
     <script type="text/javascript" src="app.js"></script>
   </head>
   <body id="body"
         ng-controller="RulerControl"
-        ng-init="init('horizontal')"
+        ng-init="init('vertical')"
         ng-mouse
         ng-mousemove="mousemove($event)">
 
@@ -17,10 +17,10 @@
     <div id="cm" style="width: 1cm; display: none;"></div>
     <div id="in" style="width: 1in; display: none;"></div>
 
-    <div id="ruler" class="ruler horizontal">
-      <canvas id="ruler_canvas"></canvas>
-      <button id="close_window_button" class="horizontal" ng-click="closeWindow()"></button>
-      <button class="units_label horizontal"
+    <div id="ruler" class="ruler vertical">
+      <canvas id="ruler_canvas" class="vertical"></canvas>
+      <button id="close_window_button" class="vertical" ng-click="closeWindow()"></button>
+      <button class="units_label vertical"
               ng-click="unitsClicked()">{{horizontal.units_label}}</button>
     </div>
   </body>

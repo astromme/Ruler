@@ -25,8 +25,6 @@ li {
 	z-index: 1000;
 	position:absolute;
 	-webkit-app-region: no-drag !important;
-	top: 15px;
-	right: 6px;
 	border: none;
 	width: 17px;
 	height: 17px;
@@ -37,6 +35,16 @@ li {
 	                           rgba(255,255,225,0) 100%);
 }
 
+#close_window_button.horizontal {
+	top: 15px;
+	right: 6px;
+}
+
+#close_window_button.vertical {
+	top: 6px;
+	right: 15px;
+}
+
 #close_window_button:hover {
 	background:url(close_hover.png) no-repeat;
 	background-color: rgba(255, 255, 255, 1);
@@ -45,12 +53,22 @@ li {
 .units_label {
 	position: absolute;
 	-webkit-app-region: no-drag !important;
-	bottom: 0px;
-	left: 0px;
 	border: none;
 	background: none;
 	margin: 0;
 	padding: 5px 5px 5px 5px;
+}
+
+.units_label.horizontal {
+	bottom: 0px;
+	left: 0px;
+}
+.units_label.vertical {
+	bottom: 0px;
+	left: 0px;
+	-webkit-transform: rotate(90deg);
+	-webkit-transform-origin-x: 50%;
+	-webkit-transform-origin-y: 50%;
 }
 
 .ruler {
@@ -69,8 +87,24 @@ li {
 	padding: 0;
 }
 
-#ruler_horizontal {
+#ruler_canvas.vertical {
+	position: absolute;
+	-webkit-transform: rotate(90deg);
+	-webkit-transform-origin: 50% 0%;
+	left: -1950px;
+	top: 2000px;
+}
+
+#ruler {
 	-webkit-app-region: drag;
+}
+
+#ruler.horizontal {
 	width: 100%;
 	height: 50px;
+}
+
+#ruler.vertical {
+	width: 50px;
+	height: 100%;
 }
