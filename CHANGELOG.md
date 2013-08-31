@@ -1,6 +1,11 @@
 Ruler Changelog
 ===============
 
+v0.4
+----
+
+* Google Analytics support
+
 v0.3.1
 ------
 
