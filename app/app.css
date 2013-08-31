@@ -21,6 +21,10 @@ li {
 	list-style-type: none;
 }
 
+button {
+	-webkit-app-region: no-drag !important;
+}
+
 #close_window_button {
 	z-index: 1000;
 	position:absolute;
@@ -77,6 +81,7 @@ li {
 	position: absolute;
 	padding: 0 0 0 0;
 	border: 1px solid rgba(20, 20, 20, 100);
+	-webkit-app-region: no-drag !important;
 }
 
 #horizontal_ruler.horizontal {
@@ -97,6 +102,7 @@ li {
 	position: absolute;
 	padding: 0 0 0 0;
 	border: 1px solid rgba(20, 20, 20, 100);
+	-webkit-app-region: no-drag !important;
 }
 
 #vertical_ruler.horizontal {
