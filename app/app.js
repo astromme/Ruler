@@ -3,6 +3,9 @@ angular.module('ruler', ['ui']);
 // ruler can't get bigger than this
 var maximum_width = "4000"
 
+var service = analytics.getService('ruler');
+var tracker = service.getTracker('UA-40067294-1');  // Supply your GA Tracking ID.
+
 function toArray(list) {
   return Array.prototype.slice.call(list || [], 0);
 }
@@ -82,6 +85,7 @@ function RulerControl($scope) {
     $scope.init = function(orientation) {
         $scope.orientation = orientation;
         console.log('init');
+        tracker.sendAppView('Ruler-'+$scope.orientation);
 
         var canvas = document.getElementById("ruler_canvas");
         if ($scope.orientation == 'horizontal') {
@@ -92,16 +96,33 @@ function RulerControl($scope) {
             canvas.height = document.body.clientWidth;
         }
 
-
         $scope.selectUnits("px");
+
+        service.getConfig().addCallback(function(config) {
+            var checkbox = document.getElementById('analytics');
+            checkbox.checked = config.isTrackingPermitted();
+            checkbox.onchange = function() {
+                config.setTrackingPermitted(checkbox.checked);
+            };
+        });
+
 
         //document.getElementById("body").webkitRequestPointerLock();
         //document.addEventListener('webkitpointerlockchange', changeCallback, false);
     }
 
     $scope.closeWindow = function() {
+        tracker.sendEvent('Ruler', 'CloseClicked');
         window.close();
     }
+
+    $scope.showSettings = function() {
+        tracker.sendEvent('Ruler', 'ShowSettings');
+
+        var settings_div = document.getElementById('settings');
+        settings_div.hidden = !settings_div.hidden;
+
+}
 
     $scope.unitsClicked = function() {
 
@@ -110,6 +131,9 @@ function RulerControl($scope) {
             'in': 'px',
             'px': 'cm',
         }
+
+        tracker.sendAppView('Ruler-'+$scope.orientation+'-'+options[$scope.horizontal.units]);
+        tracker.sendEvent('Ruler', 'UnitsClicked');
 
         $scope.selectUnits(options[$scope.horizontal.units]);
     }
@@ -132,11 +156,15 @@ function RulerControl($scope) {
     }
 
     $scope.createHorizontalRuler = function($event) {
+        tracker.sendEvent('Ruler', 'CreateHorizontalRuler', 'from-'+$scope.orientation);
+
         chrome.runtime.sendMessage({text:"createHorizontalRuler"}, function(reponse){
         });
     }
 
     $scope.createVerticalRuler = function($event) {
+        tracker.sendEvent('Ruler', 'CreateHorizontalRuler', 'from-'+$scope.orientation);
+
         chrome.runtime.sendMessage({text:"createVerticalRuler"}, function(reponse){
         });
     }

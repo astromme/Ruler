@@ -4,6 +4,7 @@
   	<link rel="stylesheet" type="text/css" href="app.css">
 
     <script type="text/javascript" src="lib/angularjs/angular.js"></script>
+    <script src="lib/analytics/google-analytics-bundle.js"></script>
     <script type="text/javascript" src="app.js"></script>
   </head>
   <body id="body"
@@ -24,6 +25,7 @@
               ng-click="unitsClicked()">{{horizontal.units_label}}</button>
       <button id="horizontal_ruler" class="vertical" ng-click="createHorizontalRuler()"></button>
       <button id="vertical_ruler" class="vertical" ng-click="createVerticalRuler()"></button>
+      <!--<button id="show_settings" class="vertical" ng-click="showSettings()"></button>-->
     </div>
   </body>
 </html>
