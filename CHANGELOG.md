@@ -1,6 +1,11 @@
 Ruler Changelog
 ===============
 
+v0.3.1
+------
+
+* Fix creating new horizontal/vertical rulers on Win/Mac/OSX
+
 v0.3
 ----
 
