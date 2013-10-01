@@ -36,3 +36,8 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
     createVerticalRuler();
   }
 });
+
+chrome.app.window.onBoundsChanged.addListener(function() {
+  console.log("onBoundsChanged()");
+  console.log(arguments);
+});

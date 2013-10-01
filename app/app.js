@@ -152,7 +152,16 @@ function RulerControl($scope) {
 
     $scope.mousemove = function($event) {
         //console.log("mousemove");
-        //console.log($event);
+        console.log("press: " + $event.button);
+        //console.log($event.webkitMovementX + " " + $event.webkitMovementY);
+        //console.log(window.screenX + " " + window.screenY);
+    }
+
+    $scope.mousemove = function($event) {
+        //console.log("mousemove");
+        console.log($event.button);
+        //console.log($event.webkitMovementX + " " + $event.webkitMovementY);
+        //console.log(window.screenX + " " + window.screenY);
     }
 
     $scope.createHorizontalRuler = function($event) {

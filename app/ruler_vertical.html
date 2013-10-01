@@ -13,12 +13,13 @@
         ng-mouse
         ng-mousemove="mousemove($event)">
 
-
     <div id="px" style="width: 1px; display: none;"></div>
     <div id="cm" style="width: 1cm; display: none;"></div>
     <div id="in" style="width: 1in; display: none;"></div>
 
-    <div id="ruler" class="ruler vertical">
+    <div id="ruler" class="ruler vertical"
+         ng-mousemove="mousemove($event)"
+         ng-mousedown="mousepress($event)">
       <canvas id="ruler_canvas" class="vertical"></canvas>
       <button id="close_window_button" class="vertical" ng-click="closeWindow()"></button>
       <button class="units_label vertical"
