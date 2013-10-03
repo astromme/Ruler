@@ -1,4 +1,4 @@
-angular.module('ruler', ['ui']);
+angular.module('ruler', [])
 
 // ruler can't get bigger than this
 var maximum_width = "4000"
@@ -129,8 +129,7 @@ function RulerControl($scope) {
 
         var settings_div = document.getElementById('settings');
         settings_div.hidden = !settings_div.hidden;
-
-}
+    }
 
     $scope.unitsClicked = function() {
 
