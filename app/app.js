@@ -21,6 +21,11 @@ Array.prototype.remove = function() {
     return this;
 };
 
+function isFunction(functionToCheck) {
+ var getType = {};
+ return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+}
+
 
 // called when the pointer lock has changed. Here we check whether the
 // pointerlock was initiated on the element we want.
@@ -97,6 +102,8 @@ function RulerControl($scope) {
             canvas.height = document.body.clientWidth;
         }
 
+        $scope.loadSettings();
+
         $scope.selectUnits("px");
 
         service.getConfig().addCallback(function(config) {
@@ -142,13 +149,37 @@ function RulerControl($scope) {
     $scope.updateScreenInches = function() {
         $scope.screen_diagonal_cm = 2.54*$scope.screen_diagonal_inches;
         $scope.selectUnits($scope.horizontal.units);
+        $scope.saveSettings();
     }
 
     $scope.updateScreenCm = function() {
         $scope.screen_diagonal_inches = $scope.screen_diagonal_cm/2.54;
         $scope.selectUnits($scope.horizontal.units);
+        $scope.saveSettings();
     }  
 
+    $scope.saveSettings = function(callback) {
+        var data = {
+            screen_diagonal_inches: $scope.screen_diagonal_inches
+        }
+
+        chrome.storage.local.set(data, function() {
+            console.log("settings saved");
+            if (isFunction(callback)) {
+                callback();
+            }
+        });
+    }
+
+    $scope.loadSettings = function(callback) {
+        chrome.storage.local.get(null, function(data) {
+            $scope.screen_diagonal_inches = data.screen_diagonal_inches;
+            console.log("settings loaded");
+            if (isFunction(callback)) {
+                callback();
+            }
+        });
+    }
 
     $scope.selectUnits = function(units) {
         var unit_options = $scope.horizontal.unit_options[units];
@@ -197,7 +228,9 @@ function RulerControl($scope) {
 
         var units = $scope.horizontal.units;
 
-        if (units == "px" || $scope.screen_diagonal_inches == 0) {
+        if (units == "px" 
+            || $scope.screen_diagonal_inches == 0 
+            || $scope.screen_diagonal_inches === undefined) {
             var px_per_unit = window.getComputedStyle(document.getElementById(units)).width.slice(0, -2);
         } else {
             // We want to find a multipler that we can apply to the px_per_unit
