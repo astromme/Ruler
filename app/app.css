@@ -21,8 +21,16 @@ li {
 	list-style-type: none;
 }
 
-button {
+button,input {
 	-webkit-app-region: no-drag !important;
+}
+
+/* don't show spin boxes */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
 #close_window_button {
@@ -145,6 +153,15 @@ button {
 	bottom: 0;
 	left: 75px;
 	margin: 1px 1px 1px 1px;
+	line-height: 23px;
+}
+
+#settings div {
+	float: left;
+}
+
+#settings #diagonal_size_in,#diagonal_size_cm {
+	width: 40px;
 }
 
 .ruler {

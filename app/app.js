@@ -80,7 +80,8 @@ function RulerControl($scope) {
         }
     }
 
-
+    $scope.screen_diagonal_inches = 0;
+    $scope.screen_diagonal_cm = 0;
 
     $scope.init = function(orientation) {
         $scope.orientation = orientation;
@@ -137,6 +138,17 @@ function RulerControl($scope) {
 
         $scope.selectUnits(options[$scope.horizontal.units]);
     }
+    
+    $scope.updateScreenInches = function() {
+        $scope.screen_diagonal_cm = 2.54*$scope.screen_diagonal_inches;
+        $scope.selectUnits($scope.horizontal.units);
+    }
+
+    $scope.updateScreenCm = function() {
+        $scope.screen_diagonal_inches = $scope.screen_diagonal_cm/2.54;
+        $scope.selectUnits($scope.horizontal.units);
+    }  
+
 
     $scope.selectUnits = function(units) {
         var unit_options = $scope.horizontal.unit_options[units];
@@ -184,7 +196,26 @@ function RulerControl($scope) {
         var label_height = 10;
 
         var units = $scope.horizontal.units;
-        var px_per_unit = window.getComputedStyle(document.getElementById(units)).width.slice(0, -2);
+
+        if (units == "px" || $scope.screen_diagonal_inches == 0) {
+            var px_per_unit = window.getComputedStyle(document.getElementById(units)).width.slice(0, -2);
+        } else {
+            // We want to find a multipler that we can apply to the px_per_unit
+            // so that it correctly represents the px_per_inch and px_per_cm
+            // of the particular display in question. For a particular dimension
+            // the way to do this is find the ratio between pixels and inches,
+            // then use that as px_per_unit.
+            var screen_diagonal_pixels = Math.sqrt(Math.pow(screen.width,2) +
+                                                   Math.pow(screen.height,2));
+            var ppi = screen_diagonal_pixels / $scope.screen_diagonal_inches;
+
+            if (units == "cm") {
+                var px_per_unit = ppi * 2.54;
+            } else {
+                var px_per_unit = ppi;
+            }
+        }
+        
         console.log(px_per_unit + " px per " + units);
 
         var font_height = 12;

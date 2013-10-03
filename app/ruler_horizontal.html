@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="" ng-csp>
+<html ng-app="ruler" ng-csp>
   <head>
     <link rel="stylesheet" type="text/css" href="app.css">
 
@@ -27,8 +27,25 @@
       <button id="vertical_ruler" class="horizontal" ng-click="createVerticalRuler()"></button>
       <button id="show_settings" class="horizontal" ng-click="showSettings()"></button>
       <div id="settings" hidden>
-          <input id="analytics" type="checkbox" />
-          Help make Ruler better by sending anonymous usage data.
+
+          <div id="screen_size" ng-hide="horizontal.units == 'px'">
+              diagonal screen size for calibration:
+              <input type="number"
+                     id="diagonal_size_in"
+                     ng-model="screen_diagonal_inches"
+                     ng-change="updateScreenInches()"
+                     ng-show="horizontal.units == 'in'" />
+              <input type="number"
+                     id="diagonal_size_cm"
+                     ng-model="screen_diagonal_cm"
+                     ng-change="updateScreenCm()"
+                     ng-show="horizontal.units == 'cm'" />
+              {{horizontal.units_label}} |&nbsp; 
+          </div>
+          <div>
+              <input id="analytics" type="checkbox" />
+              use anonymous analytics data.
+          </div>
       </div>
     </div>
   </body>
