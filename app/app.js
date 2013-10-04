@@ -4,7 +4,7 @@ angular.module('ruler', [])
 var maximum_width = "4000"
 
 var service = analytics.getService('ruler');
-var tracker = service.getTracker('UA-40067294-1');  // Supply your GA Tracking ID.
+var tracker = service.getTracker('UA-40067294-2');  // Supply your GA Tracking ID.
 
 function toArray(list) {
   return Array.prototype.slice.call(list || [], 0);
