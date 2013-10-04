@@ -242,7 +242,7 @@ function RulerControl($scope) {
             var ppi = screen_diagonal_pixels / $scope.screen_diagonal_inches;
 
             if (units == "cm") {
-                var px_per_unit = ppi * 2.54;
+                var px_per_unit = ppi/2.54;
             } else {
                 var px_per_unit = ppi;
             }
