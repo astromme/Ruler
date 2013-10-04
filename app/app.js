@@ -120,10 +120,12 @@ function RulerControl($scope) {
 
         service.getConfig().addCallback(function(config) {
             var checkbox = document.getElementById('analytics');
-            checkbox.checked = config.isTrackingPermitted();
-            checkbox.onchange = function() {
-                config.setTrackingPermitted(checkbox.checked);
-            };
+            if (checkbox != undefined) {
+                checkbox.checked = config.isTrackingPermitted();
+                checkbox.onchange = function() {
+                    config.setTrackingPermitted(checkbox.checked);
+                };
+            }
         });
 
 
