@@ -1,6 +1,11 @@
 Ruler Changelog
 ===============
 
+v0.5.1
+------
+
+* Fix Analytics support
+
 v0.5
 ----
 

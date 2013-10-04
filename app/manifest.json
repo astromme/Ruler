@@ -1,7 +1,7 @@
 {
   "name": "Ruler",
   "description": "Clean and minimal ruler with support for px, cm, in.",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "minimum_chrome_version": "26",
   "app": {
     "background": {
