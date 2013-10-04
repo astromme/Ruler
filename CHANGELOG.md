@@ -1,6 +1,12 @@
 Ruler Changelog
 ===============
 
+v0.5
+----
+
+* Support for entering screen inches/centimeters to calibrate
+* Fix Analytics support for vertical rulers
+
 v0.4
 ----
 
