@@ -88,6 +88,18 @@ function RulerControl($scope) {
     $scope.screen_diagonal_inches = 0;
     $scope.screen_diagonal_cm = 0;
 
+    //console.log("adding message listener");
+    chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
+        //console.log("got message", message)
+        if (message.text == "updateScreenInches") {
+            $scope.screen_diagonal_inches = message.inches;
+            $scope.updateScreenInches(true /*suppress_broadcast*/);
+        } else if (message.text == "updateScreenCm") {
+            $scope.screen_diagonal_cm = message.cm;
+            $scope.updateScreenCm(true /*suppress_broadcast*/);
+        }
+    });
+
     $scope.init = function(orientation) {
         $scope.orientation = orientation;
         console.log('init');
@@ -145,15 +157,35 @@ function RulerControl($scope) {
         $scope.selectUnits(options[$scope.horizontal.units]);
     }
     
-    $scope.updateScreenInches = function() {
+    $scope.updateScreenInches = function(suppress_broadcast) {
         $scope.screen_diagonal_cm = 2.54*$scope.screen_diagonal_inches;
         $scope.selectUnits($scope.horizontal.units);
-        $scope.saveSettings();
+
+        if (suppress_broadcast == true) {
+            //console.log("Suppressing broadcast");
+            return;
+        }
+
+        //console.log("Telling other rulers to update their screen inches");
+        chrome.runtime.sendMessage({ text:"updateScreenInches",
+                                     inches:$scope.screen_diagonal_inches },
+                                   function(reponse){});
+        $scope.saveSettings(); 
     }
 
-    $scope.updateScreenCm = function() {
+    $scope.updateScreenCm = function(suppress_broadcast) {
         $scope.screen_diagonal_inches = $scope.screen_diagonal_cm/2.54;
         $scope.selectUnits($scope.horizontal.units);
+
+        if (suppress_broadcast == true) {
+            //console.log("Suppressing broadcast");
+            return;
+        }
+
+        //console.log("Telling other rulers to update their screen inches");
+        chrome.runtime.sendMessage({ text:"updateScreenCm",
+                                     cm:$scope.screen_diagonal_cm },
+                                   function(reponse){});
         $scope.saveSettings();
     }  
 
