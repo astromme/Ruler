@@ -1,6 +1,15 @@
 Ruler Changelog
 ===============
 
+v0.5.2
+------
+
+* More analytics
+* Improved usability (see below)
+* Expose all 3 types of units all of the time
+* Expose the calibration all of the time on the relevant units
+* Removed blue automatic outlines from buttons
+
 v0.5.1
 ------
 
