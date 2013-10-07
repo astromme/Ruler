@@ -1,6 +1,12 @@
 Edge Changelog
 ==============
 
+v0.6.1
+------
+
+* Small branding change
+* Arrow keys move the ruler around
+
 v0.6
 ----
 
