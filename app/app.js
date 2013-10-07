@@ -216,6 +216,7 @@ function RulerControl($scope) {
     $scope.loadSettings = function(callback) {
         chrome.storage.local.get(null, function(data) {
             $scope.screen_diagonal_inches = data.screen_diagonal_inches;
+            $scope.screen_diagonal_cm = cm_per_in*$scope.screen_diagonal_inches;
             console.log("settings loaded");
             if (isFunction(callback)) {
                 callback();
