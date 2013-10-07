@@ -3,6 +3,9 @@ angular.module('ruler', [])
 // ruler can't get bigger than this
 var maximum_width = "4000"
 
+// 2.54 cms in one inch
+var cm_per_in = 2.54;
+
 var service = analytics.getService('ruler');
 var tracker = service.getTracker('UA-40067294-2');  // Supply your GA Tracking ID.
 
@@ -166,7 +169,7 @@ function RulerControl($scope) {
     $scope.selectIn = function() { return $scope.selectTypeOfUnit('in'); }
 
     $scope.updateScreenInches = function(suppress_broadcast) {
-        $scope.screen_diagonal_cm = 2.54*$scope.screen_diagonal_inches;
+        $scope.screen_diagonal_cm = cm_per_in*$scope.screen_diagonal_inches;
         $scope.selectUnits($scope.horizontal.units);
 
         if (suppress_broadcast == true) {
@@ -182,7 +185,7 @@ function RulerControl($scope) {
     }
 
     $scope.updateScreenCm = function(suppress_broadcast) {
-        $scope.screen_diagonal_inches = $scope.screen_diagonal_cm/2.54;
+        $scope.screen_diagonal_inches = $scope.screen_diagonal_cm/cm_per_in;
         $scope.selectUnits($scope.horizontal.units);
 
         if (suppress_broadcast == true) {
@@ -282,7 +285,7 @@ function RulerControl($scope) {
             var ppi = screen_diagonal_pixels / $scope.screen_diagonal_inches;
 
             if (units == "cm") {
-                var px_per_unit = ppi/2.54;
+                var px_per_unit = ppi/cm_per_in;
             } else {
                 var px_per_unit = ppi;
             }
