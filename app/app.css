@@ -25,6 +25,10 @@ button,input {
 	-webkit-app-region: no-drag !important;
 }
 
+button {
+	outline: none;
+}
+
 /* don't show spin boxes */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -62,25 +66,39 @@ input::-webkit-inner-spin-button {
 	background-color: rgba(255, 255, 255, 1);
 }
 
-.units_label {
+
+#units_container {
 	position: absolute;
-	-webkit-app-region: no-drag !important;
-	border: none;
-	background: none;
 	margin: 0;
-	padding: 5px 5px 5px 5px;
+	padding: 0;
 }
 
-.units_label.horizontal {
+#units_container.horizontal {
 	bottom: 0px;
 	left: 0px;
 }
-.units_label.vertical {
+#units_container.vertical {
 	bottom: 0px;
-	left: 0px;
+	right: 3px;
+	bottom: 28px;
+	width: 75px;
 	-webkit-transform: rotate(90deg);
 	-webkit-transform-origin-x: 50%;
 	-webkit-transform-origin-y: 50%;
+}
+
+#units_container button {
+	padding: 3px 0px 3px 0px;
+	width: 25px;
+	float: left;
+	border: none;
+	background: none;
+	margin: 0;
+}
+
+#units_container button.selected {
+	color: #FFFFEF;
+	background-color: #7C7580;
 }
 
 #horizontal_ruler {
@@ -95,12 +113,12 @@ input::-webkit-inner-spin-button {
 #horizontal_ruler.horizontal {
 	margin: 5px 5px 7.5px 7.5px;
 	bottom: 0px;
-	left: 20px;
+	left: 75px;
 }
 
 #horizontal_ruler.vertical {
 	left: 0px;
-	bottom: 20px;
+	bottom: 75px;
 	margin: 5px 5px 7.5px 5px;
 }
 
@@ -115,13 +133,13 @@ input::-webkit-inner-spin-button {
 
 #vertical_ruler.horizontal {
 	bottom: 0px;
-	left: 40px;
+	left: 95px;
 	margin: 5px 5px 5px 5px;
 }
 
 #vertical_ruler.vertical {
 	left: 0px;
-	bottom: 40px;
+	bottom: 95px;
 	margin: 5px 5px 2px 7px;
 }
 
@@ -136,13 +154,13 @@ input::-webkit-inner-spin-button {
 
 #show_settings.horizontal {
 	bottom: 0px;
-	left: 52px;
+	left: 107px;
 	margin: 5px 5px 4px 5px;
 }
 
 #show_settings.vertical {
 	left: 0px;
-	bottom: 52px;
+	bottom: 107px;
 	margin: 5px 5px 5px 4px;
 }
 
@@ -151,7 +169,7 @@ input::-webkit-inner-spin-button {
 	padding: 0 0 0 0;
 	border: none;
 	bottom: 0;
-	left: 75px;
+	left: 130px;
 	margin: 1px 1px 1px 1px;
 	line-height: 23px;
 }

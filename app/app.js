@@ -85,6 +85,8 @@ function RulerControl($scope) {
         }
     }
 
+    $scope.settings_visible = false;
+
     $scope.screen_diagonal_inches = 0;
     $scope.screen_diagonal_cm = 0;
 
@@ -141,24 +143,28 @@ function RulerControl($scope) {
     $scope.showSettings = function() {
         tracker.sendEvent('Ruler', 'ShowSettings');
 
-        var settings_div = document.getElementById('settings');
-        settings_div.hidden = !settings_div.hidden;
+        $scope.settings_visible = !$scope.settings_visible;
     }
 
-    $scope.unitsClicked = function() {
+    $scope.isTypeOfUnit = function(unit) {
+        return $scope.horizontal.units == unit;
+    }
 
-        var options = {
-            'cm': 'in',
-            'in': 'px',
-            'px': 'cm',
-        }
+    $scope.isPx = function() { return $scope.isTypeOfUnit('px'); }
+    $scope.isCm = function() { return $scope.isTypeOfUnit('cm'); }
+    $scope.isIn = function() { return $scope.isTypeOfUnit('in'); }
 
-        tracker.sendAppView('Ruler-'+$scope.orientation+'-'+options[$scope.horizontal.units]);
+    $scope.selectTypeOfUnit = function(unit) {
+        tracker.sendAppView('Ruler-'+$scope.orientation+'-'+unit);
         tracker.sendEvent('Ruler', 'UnitsClicked');
 
-        $scope.selectUnits(options[$scope.horizontal.units]);
+        $scope.selectUnits(unit);
     }
-    
+
+    $scope.selectPx = function() { return $scope.selectTypeOfUnit('px'); }
+    $scope.selectCm = function() { return $scope.selectTypeOfUnit('cm'); }
+    $scope.selectIn = function() { return $scope.selectTypeOfUnit('in'); }
+
     $scope.updateScreenInches = function(suppress_broadcast) {
         $scope.screen_diagonal_cm = 2.54*$scope.screen_diagonal_inches;
         $scope.selectUnits($scope.horizontal.units);

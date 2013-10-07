@@ -21,13 +21,17 @@
     <div id="ruler" class="ruler horizontal">
       <canvas id="ruler_canvas"></canvas>
       <button id="close_window_button" class="horizontal" ng-click="closeWindow()"></button>
-      <button class="units_label horizontal"
-              ng-click="unitsClicked()">{{horizontal.units_label}}</button>
+
+      <div id="units_container" class="horizontal">
+        <button ng-click="selectPx()" ng-class="{selected: isPx()}">px</button>
+        <button ng-click="selectCm()" ng-class="{selected: isCm()}">cm</button>
+        <button ng-click="selectIn()" ng-class="{selected: isIn()}">in</button>
+      </div>
+
       <button id="horizontal_ruler" class="horizontal" ng-click="createHorizontalRuler()"></button>
       <button id="vertical_ruler" class="horizontal" ng-click="createVerticalRuler()"></button>
       <button id="show_settings" class="horizontal" ng-click="showSettings()"></button>
-      <div id="settings" hidden>
-
+      <div id="settings">
           <div id="screen_size" ng-hide="horizontal.units == 'px'">
               diagonal screen size for calibration:
               <input type="number"
@@ -40,9 +44,12 @@
                      ng-model="screen_diagonal_cm"
                      ng-change="updateScreenCm()"
                      ng-show="horizontal.units == 'cm'" />
-              {{horizontal.units_label}} |&nbsp; 
+              {{horizontal.units_label}} 
           </div>
-          <div>
+          <div ng-show="settings_visible && horizontal.units != 'px'">
+             &nbsp;|&nbsp;
+          </div>
+          <div ng-show="settings_visible">
               <input id="analytics" type="checkbox" />
               <label for="analytics">use anonymous analytics data.</label>
           </div>

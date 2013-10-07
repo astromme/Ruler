@@ -22,8 +22,13 @@
          ng-mousedown="mousepress($event)">
       <canvas id="ruler_canvas" class="vertical"></canvas>
       <button id="close_window_button" class="vertical" ng-click="closeWindow()"></button>
-      <button class="units_label vertical"
-              ng-click="unitsClicked()">{{horizontal.units_label}}</button>
+
+      <div id="units_container" class="vertical">
+        <button ng-click="selectPx()" ng-class="{selected: isPx()}">px</button>
+        <button ng-click="selectCm()" ng-class="{selected: isCm()}">cm</button>
+        <button ng-click="selectIn()" ng-class="{selected: isIn()}">in</button>
+      </div>
+
       <button id="horizontal_ruler" class="vertical" ng-click="createHorizontalRuler()"></button>
       <button id="vertical_ruler" class="vertical" ng-click="createVerticalRuler()"></button>
       <!--<button id="show_settings" class="vertical" ng-click="showSettings()"></button>-->
