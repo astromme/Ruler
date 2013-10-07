@@ -1,5 +1,10 @@
-Ruler Changelog
-===============
+Edge Changelog
+==============
+
+v0.6
+----
+
+* Name change to Edge
 
 v0.5.2
 ------
