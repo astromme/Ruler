@@ -140,11 +140,16 @@ function RulerControl($scope) {
 
     $scope.closeWindow = function() {
         tracker.sendEvent('Ruler', 'CloseClicked');
+        tracker.sendAppView('Ruler-'+$scope.orientation);
         window.close();
     }
 
     $scope.showSettings = function() {
-        tracker.sendEvent('Ruler', 'ShowSettings');
+        if ($scope.settings_visible) {
+            tracker.sendEvent('Ruler', 'ShowSettings');
+        } else {
+            tracker.sendEvent('Ruler', 'HideSettings');
+        }
 
         $scope.settings_visible = !$scope.settings_visible;
     }
