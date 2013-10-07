@@ -1,6 +1,11 @@
 Edge Changelog
 ==============
 
+v0.6.2
+------
+
+* Another small branding change
+
 v0.6.1
 ------
 
