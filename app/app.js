@@ -6,6 +6,12 @@ var maximum_width = "4000"
 // 2.54 cms in one inch
 var cm_per_in = 2.54;
 
+// keycodes
+var left_arrow = 37;
+var up_arrow = 38;
+var right_arrow = 39;
+var down_arrow = 40;
+
 var service = analytics.getService('ruler');
 var tracker = service.getTracker('UA-40067294-2');  // Supply your GA Tracking ID.
 
@@ -239,6 +245,22 @@ function RulerControl($scope) {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
         $scope.draw_ruler();
+    }
+
+    $scope.keydown = function($event) {
+        var bounds = chrome.app.window.current().getBounds();
+
+        if ($event.keyCode == left_arrow) {
+            bounds.left -= $event.shiftKey ? 10 : 1;
+        } else if ($event.keyCode == up_arrow) {
+            bounds.top -= $event.shiftKey ? 10 : 1;
+        } else if ($event.keyCode == right_arrow) {
+            bounds.left += $event.shiftKey ? 10 : 1;
+        } else if ($event.keyCode == down_arrow) {
+            bounds.top += $event.shiftKey ? 10 : 1;
+        }
+
+        chrome.app.window.current().setBounds(bounds);
     }
 
     $scope.mousemove = function($event) {
