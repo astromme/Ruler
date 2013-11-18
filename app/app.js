@@ -127,8 +127,6 @@ function RulerControl($scope) {
 
         $scope.loadSettings();
 
-        $scope.selectUnits("px");
-
         service.getConfig().addCallback(function(config) {
             var checkbox = document.getElementById('analytics');
             if (checkbox != undefined) {
@@ -140,11 +138,13 @@ function RulerControl($scope) {
         });
 
 
+
         //document.getElementById("body").webkitRequestPointerLock();
         //document.addEventListener('webkitpointerlockchange', changeCallback, false);
     }
 
     $scope.closeWindow = function() {
+        chrome.storage.local.remove('ruler-'+chrome.app.window.current().id);
         tracker.sendEvent('Ruler', 'CloseClicked');
         tracker.sendAppView('Ruler-'+$scope.orientation);
         window.close();
@@ -213,8 +213,14 @@ function RulerControl($scope) {
 
     $scope.saveSettings = function(callback) {
         var data = {
-            screen_diagonal_inches: $scope.screen_diagonal_inches
+            'screen_diagonal_inches': $scope.screen_diagonal_inches
         }
+
+        var id = 'ruler-'+chrome.app.window.current().id;
+        data[id] = {
+            'orientation': $scope.orientation,
+            'units': $scope.horizontal.units
+        };
 
         chrome.storage.local.set(data, function() {
             console.log("settings saved");
@@ -228,6 +234,15 @@ function RulerControl($scope) {
         chrome.storage.local.get(null, function(data) {
             $scope.screen_diagonal_inches = data.screen_diagonal_inches;
             $scope.screen_diagonal_cm = cm_per_in*$scope.screen_diagonal_inches;
+
+            var id = 'ruler-'+chrome.app.window.current().id;
+            if (data[id]) {
+                $scope.selectUnits(data[id].units)
+            } else {
+                $scope.selectUnits("px");
+                $scope.saveSettings();
+            }
+
             console.log("settings loaded");
             if (isFunction(callback)) {
                 callback();
@@ -240,6 +255,8 @@ function RulerControl($scope) {
         for (var key in unit_options) {
             $scope.horizontal[key] = unit_options[key];
         }
+
+        $scope.saveSettings();
 
         var ctx = document.getElementById("ruler_canvas").getContext("2d");
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
