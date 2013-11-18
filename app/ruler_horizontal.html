@@ -36,11 +36,15 @@
           <div id="screen_size" ng-hide="horizontal.units == 'px'">
               diagonal screen size (for calibration):
               <input type="number"
+                     min="0"
+                     max="999"
                      id="diagonal_size_in"
                      ng-model="screen_diagonal_inches"
                      ng-change="updateScreenInches()"
                      ng-show="horizontal.units == 'in'" />
               <input type="number"
+                     min="0"
+                     max="999"
                      id="diagonal_size_cm"
                      ng-model="screen_diagonal_cm"
                      ng-change="updateScreenCm()"
