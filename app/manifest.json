@@ -2,7 +2,7 @@
   "name": "Edge: The Web Ruler",
   "short_name": "Edge (Ruler)",
   "description": "Edge is an on-screen ruler that supports multiple units, horizontal & vertical orientation, and looks like a native application.",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "minimum_chrome_version": "26",
   "app": {
     "background": {

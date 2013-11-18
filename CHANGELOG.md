@@ -1,6 +1,13 @@
 Edge Changelog
 ==============
 
+v0.6.3
+------
+
+* Feature: Remember position & units of rulers when starting up
+* Bugfix: Limit screen diagonal value to 999 to prevent unusable behavior
+* Bugfix: Don't move ruler when arrow keys are used inside an input
+
 v0.6.2
 ------
 
