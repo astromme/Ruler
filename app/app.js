@@ -248,6 +248,10 @@ function RulerControl($scope) {
     }
 
     $scope.keydown = function($event) {
+        if ($event.target.tagName == "INPUT") {
+            return; // ignore custom keydown for input events
+        }
+
         var bounds = chrome.app.window.current().getBounds();
 
         if ($event.keyCode == left_arrow) {
