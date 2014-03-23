@@ -1,4 +1,4 @@
-angular.module('ruler', [])
+var ruler_app = angular.module('ruler', []);
 
 // ruler can't get bigger than this
 var maximum_width = "4000"
@@ -57,7 +57,7 @@ function errorHandler(e) {
   console.error(e);
 }
 
-function RulerControl($scope) {
+ruler_app.controller('RulerControl', ['$scope', function($scope) {
     $scope.horizontal = {
         units: null,
         units_label: null,
@@ -110,38 +110,6 @@ function RulerControl($scope) {
             $scope.updateScreenCm(true /*suppress_broadcast*/);
         }
     });
-
-    $scope.init = function(orientation) {
-        $scope.orientation = orientation;
-        console.log('init');
-        tracker.sendAppView('Ruler-'+$scope.orientation);
-
-        var canvas = document.getElementById("ruler_canvas");
-        if ($scope.orientation == 'horizontal') {
-            canvas.width = maximum_width
-            canvas.height = document.body.clientHeight;
-        } else {
-            canvas.width = maximum_width
-            canvas.height = document.body.clientWidth;
-        }
-
-        $scope.loadSettings();
-
-        service.getConfig().addCallback(function(config) {
-            var checkbox = document.getElementById('analytics');
-            if (checkbox != undefined) {
-                checkbox.checked = config.isTrackingPermitted();
-                checkbox.onchange = function() {
-                    config.setTrackingPermitted(checkbox.checked);
-                };
-            }
-        });
-
-
-
-        //document.getElementById("body").webkitRequestPointerLock();
-        //document.addEventListener('webkitpointerlockchange', changeCallback, false);
-    }
 
     $scope.closeWindow = function() {
         chrome.storage.local.remove('ruler-'+chrome.app.window.current().id);
@@ -378,4 +346,35 @@ function RulerControl($scope) {
 
         ctx.stroke();
     }
-}
+
+    angular.element(document).ready(function () {
+        $scope.$watch('orientation', function () {
+            console.log('init');
+            tracker.sendAppView('Ruler-'+$scope.orientation);
+
+            var canvas = document.getElementById("ruler_canvas");
+            if ($scope.orientation == 'horizontal') {
+                canvas.width = maximum_width
+                canvas.height = document.body.clientHeight;
+            } else {
+                canvas.width = maximum_width
+                canvas.height = document.body.clientWidth;
+            }
+
+            $scope.loadSettings();
+
+            service.getConfig().addCallback(function(config) {
+                var checkbox = document.getElementById('analytics');
+                if (checkbox != undefined) {
+                    checkbox.checked = config.isTrackingPermitted();
+                    checkbox.onchange = function() {
+                        config.setTrackingPermitted(checkbox.checked);
+                    };
+                }
+            });
+
+            //document.getElementById("body").webkitRequestPointerLock();
+            //document.addEventListener('webkitpointerlockchange', changeCallback, false);
+        });
+    });
+}]);
