@@ -1,6 +1,11 @@
 Edge Changelog
 ==============
 
+v0.6.4
+------
+
+* Fix a race condition causing rulers opened at start to be blank
+
 v0.6.3
 ------
 
