@@ -1,6 +1,11 @@
 Edge Changelog
 ==============
 
+v0.6.4.1
+--------
+
+* accidentally included work-in-progress code when packaging up 0.6.4. No other changes
+
 v0.6.4
 ------
 
