@@ -245,13 +245,29 @@ ruler_app.controller('RulerControl', ['$scope', function($scope) {
         var bounds = chrome.app.window.current().getBounds();
 
         if ($event.keyCode == left_arrow) {
-            bounds.left -= $event.shiftKey ? 10 : 1;
+            if ($event.altKey && $scope.orientation == 'horizontal') {
+                bounds.width -= $event.shiftKey ? 100 : 10;
+            } else {
+                bounds.left -= $event.shiftKey ? 10 : 1;
+            }
         } else if ($event.keyCode == up_arrow) {
-            bounds.top -= $event.shiftKey ? 10 : 1;
+            if ($event.altKey && $scope.orientation == 'vertical') {
+                bounds.height -= $event.shiftKey ? 100 : 10;
+            } else {
+                bounds.top -= $event.shiftKey ? 10 : 1;
+            }
         } else if ($event.keyCode == right_arrow) {
-            bounds.left += $event.shiftKey ? 10 : 1;
+            if ($event.altKey && $scope.orientation == 'horizontal') {
+                bounds.width += $event.shiftKey ? 100 : 10;
+            } else {
+                bounds.left += $event.shiftKey ? 10 : 1;
+            }
         } else if ($event.keyCode == down_arrow) {
-            bounds.top += $event.shiftKey ? 10 : 1;
+            if ($event.altKey && $scope.orientation == 'vertical') {
+                bounds.height += $event.shiftKey ? 100 : 10;
+            } else {
+                bounds.top += $event.shiftKey ? 10 : 1;
+            }
         }
 
         chrome.app.window.current().setBounds(bounds);
