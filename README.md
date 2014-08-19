@@ -7,7 +7,7 @@ Edge is a simple on-screen ruler written using the Chrome packaged app platform.
 Installation
 ------------
 
-Most users will want to install [from the Chrome Web Store][webstore-dl].
+#### Most users will want to install [from the Chrome Web Store][webstore-dl].
 
 ### Installing from the source
 
