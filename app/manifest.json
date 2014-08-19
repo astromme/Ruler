@@ -11,7 +11,8 @@
   },
   "permissions": [
     "https://www.google-analytics.com/",
-    "storage"
+    "storage",
+    "alwaysOnTopWindows"
   ],
   "icons": { "16": "icon-16.png", "128": "icon-128.png" }
 }

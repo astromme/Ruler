@@ -181,7 +181,8 @@ ruler_app.controller('RulerControl', ['$scope', function($scope) {
 
     $scope.saveSettings = function(callback) {
         var data = {
-            'screen_diagonal_inches': $scope.screen_diagonal_inches
+            'screen_diagonal_inches': $scope.screen_diagonal_inches,
+            'always_on_top': document.getElementById('always_on_top').checked
         }
 
         var id = 'ruler-'+chrome.app.window.current().id;
@@ -200,6 +201,10 @@ ruler_app.controller('RulerControl', ['$scope', function($scope) {
 
     $scope.loadSettings = function(callback) {
         chrome.storage.local.get(null, function(data) {
+            var always_on_top_checkbox = document.getElementById('always_on_top');
+            always_on_top_checkbox.checked = data.always_on_top;
+            chrome.app.window.current().setAlwaysOnTop(always_on_top_checkbox.checked);
+
             $scope.screen_diagonal_inches = data.screen_diagonal_inches;
             $scope.screen_diagonal_cm = cm_per_in*$scope.screen_diagonal_inches;
 
@@ -372,6 +377,12 @@ ruler_app.controller('RulerControl', ['$scope', function($scope) {
                     };
                 }
             });
+
+            var always_on_top_checkbox = document.getElementById('always_on_top');
+            always_on_top_checkbox.onchange = function() {
+                chrome.app.window.current().setAlwaysOnTop(always_on_top_checkbox.checked);
+                $scope.saveSettings();
+            }
 
             //document.getElementById("body").webkitRequestPointerLock();
             //document.addEventListener('webkitpointerlockchange', changeCallback, false);
