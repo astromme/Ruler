@@ -179,10 +179,30 @@ ruler_app.controller('RulerControl', ['$scope', function($scope) {
         $scope.saveSettings();
     }  
 
+    $scope.always_on_top_state = function() {
+        var checkbox = document.getElementById('always_on_top');
+        if (checkbox) {
+            return checkbox.checked;
+        } else {
+            return $scope.always_on_top;
+        }
+    }
+
+    $scope.set_always_on_top_state = function(state) {
+        var checkbox = document.getElementById('always_on_top');
+        if (checkbox) {
+            checkbox.checked = state;
+        } else {
+            $scope.always_on_top = state;
+        }
+
+        chrome.app.window.current().setAlwaysOnTop(state);
+    }
+
     $scope.saveSettings = function(callback) {
         var data = {
             'screen_diagonal_inches': $scope.screen_diagonal_inches,
-            'always_on_top': document.getElementById('always_on_top').checked
+            'always_on_top': $scope.always_on_top_state()
         }
 
         var id = 'ruler-'+chrome.app.window.current().id;
@@ -201,9 +221,7 @@ ruler_app.controller('RulerControl', ['$scope', function($scope) {
 
     $scope.loadSettings = function(callback) {
         chrome.storage.local.get(null, function(data) {
-            var always_on_top_checkbox = document.getElementById('always_on_top');
-            always_on_top_checkbox.checked = data.always_on_top;
-            chrome.app.window.current().setAlwaysOnTop(always_on_top_checkbox.checked);
+            $scope.set_always_on_top_state(data.always_on_top);
 
             $scope.screen_diagonal_inches = data.screen_diagonal_inches;
             $scope.screen_diagonal_cm = cm_per_in*$scope.screen_diagonal_inches;
@@ -386,7 +404,7 @@ ruler_app.controller('RulerControl', ['$scope', function($scope) {
 
             service.getConfig().addCallback(function(config) {
                 var checkbox = document.getElementById('analytics');
-                if (checkbox != undefined) {
+                if (checkbox) {
                     checkbox.checked = config.isTrackingPermitted();
                     checkbox.onchange = function() {
                         config.setTrackingPermitted(checkbox.checked);
@@ -395,9 +413,11 @@ ruler_app.controller('RulerControl', ['$scope', function($scope) {
             });
 
             var always_on_top_checkbox = document.getElementById('always_on_top');
-            always_on_top_checkbox.onchange = function() {
-                chrome.app.window.current().setAlwaysOnTop(always_on_top_checkbox.checked);
-                $scope.saveSettings();
+            if (always_on_top_checkbox) {
+                always_on_top_checkbox.onchange = function() {
+                    chrome.app.window.current().setAlwaysOnTop(always_on_top_checkbox.checked);
+                    $scope.saveSettings();
+                }                
             }
 
             //document.getElementById("body").webkitRequestPointerLock();
