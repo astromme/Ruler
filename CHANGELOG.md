@@ -1,6 +1,23 @@
 Edge Changelog
 ==============
 
+v0.6.6.1
+--------
+
+* fix vertical ruler by having a fallback location for always_on_top state
+
+v0.6.6
+------
+
+* add nudging width/height with alt key
+* better release tooling
+* old releases now stored in git repo
+
+v0.6.5
+------
+
+* add always on top feature
+
 v0.6.4.1
 --------
 
