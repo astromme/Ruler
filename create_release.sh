@@ -20,7 +20,7 @@ echo "zipping into ${filename}"
 zip -r "${filename}" app
 
 echo "adding release zip to git"
-git add "${filename"}
+git add "${filename}"
 git commit -m "adding version ${version}"
 
 echo "restoring changes since last commit"
