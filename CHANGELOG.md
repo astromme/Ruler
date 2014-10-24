@@ -1,6 +1,11 @@
 Edge Changelog
 ==============
 
+v0.6.6.2
+--------
+
+* fix ruler for Chrome 38
+
 v0.6.6.1
 --------
 
