@@ -18,7 +18,6 @@ function generateGUID() {
 }
 
 var base_parameters = {
-  'transparentBackground':true,
   'frame' : 'none',
 }
 
@@ -63,7 +62,6 @@ function createHorizontalRuler() {
 
 function createVerticalRuler() {
   var parameters = {
-    'transparentBackground':true,
     'width':50,
     'height':500,
     'frame' : 'none',
@@ -85,7 +83,6 @@ function recreateExistingWindow(id, orientation) {
   console.log('recreating' + id + orientation);
 
   var parameters = {
-    'transparentBackground':true,
     'frame' : 'none',
     'id' : id
   };

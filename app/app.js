@@ -189,6 +189,10 @@ ruler_app.controller('RulerControl', ['$scope', function($scope) {
     }
 
     $scope.set_always_on_top_state = function(state) {
+        if (state == undefined) {
+            state = false;
+        }
+        
         var checkbox = document.getElementById('always_on_top');
         if (checkbox) {
             checkbox.checked = state;
